@@ -11,10 +11,7 @@ const bodyRef = document.querySelector("body");
 const startBtnRef = document.querySelector("button[data-action=start]");
 const stopBtnRef = document.querySelector("button[data-action=stop]");
 let timerId = null;
-console.log(bodyRef);
-console.log(startBtnRef);
-console.log(stopBtnRef);
-
+let isActive = false;
 const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -26,10 +23,15 @@ function changeColor() {
 }
 
 startBtnRef.addEventListener("click", () => {
+  if (isActive) {
+    return;
+  }
+
+  isActive = true;
   timerId = setInterval(() => changeColor(), 1000);
-  // сделать кнопку неактивной во время изменений цвета
 });
 
 stopBtnRef.addEventListener("click", () => {
   clearInterval(timerId);
+  isActive = false;
 });
